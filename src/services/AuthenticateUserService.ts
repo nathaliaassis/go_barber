@@ -7,7 +7,6 @@ import User from '../models/User';
 
 interface Request {
   email: string;
-
   password: string;
 }
 
