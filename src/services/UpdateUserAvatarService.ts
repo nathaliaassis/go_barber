@@ -28,6 +28,7 @@ class UpdateUserAvatarService {
 
       if (userAvatarFileExists) {
         await fs.promises.unlink(userAvatarFilePath);
+        console.log('exists');
       }
     }
 
