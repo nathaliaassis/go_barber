@@ -1,4 +1,5 @@
 import { hash } from 'bcryptjs';
+import { inject, injectable } from 'tsyringe';
 
 import User from '../infra/typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
@@ -10,8 +11,12 @@ interface Request {
   password: string;
 }
 
+@injectable()
 class createUserSevice {
-  constructor(private usersRepository: IUsersRepository) { };
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository
+  ) { };
 
   public async execute({ name, email, password }: Request): Promise<User> {
 
