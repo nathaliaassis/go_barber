@@ -4,8 +4,6 @@ import { uuid } from 'uuidv4';
 
 import User from '@modules/users/infra/typeorm/entities/User';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
-import { container } from 'tsyringe';
-import { th } from 'date-fns/locale';
 
 class UsersRepository implements IUserRepository {
   private users: User[] = [];
