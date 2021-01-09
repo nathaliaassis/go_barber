@@ -7,6 +7,7 @@ import CreateAppointmentSevice from '@modules/appointments/services/CreateAppoin
 export default class AppointmentsController {
   //todo metodo assincrono ira retorar uma promise<response>
   public async create(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
     const { provider_id, date } = request.body;
 
     const parsedDate = parseISO(date);
@@ -15,6 +16,7 @@ export default class AppointmentsController {
 
     const appointment = await createAppointment.execute({
       date: parsedDate,
+      user_id,
       provider_id,
     });
 
