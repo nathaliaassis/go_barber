@@ -12,6 +12,8 @@ import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepo
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 
+import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
+import NotificationsRepository from '@modules/notifications/infra/typeorm/schemas/Notification';
 // o registerSingleton instancia a classe uma unica vez em todo ciclo de vida da aplicação
 container.registerSingleton<IAppointmentsRepository>(
   'AppointmentsRepository',
@@ -28,3 +30,7 @@ container.registerSingleton<IUserTokensRepository>(
   UserTokensRepository
 );
 
+container.registerSingleton<NotificationsRepository>(
+  'NotificationsRepository',
+  NotificationsRepository
+);
