@@ -1,11 +1,15 @@
 import { uuid } from 'uuidv4';
-import { isEqual } from 'date-fns';
+import { isEqual, getDate, getMonth, getYear } from 'date-fns';
 import IAppointmentRepository from '@modules/appointments/repositories/IAppointmentsRepository';
 import ICreateAppointmentDTO from '@modules/appointments/dtos/ICreateAppointmentDTO';
 
+import IFindAllInMonthFromProviderDTO from '@modules/appointments/dtos/IFindAllInMonthFromProviderDTO';
+import IFindAllInDayFromProviderDTO from '@modules/appointments/dtos/IFindAllInDayFromProviderDTO';
+
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 
-class AppointmentsRepository implements IAppointmentRepository {
+
+class FakeAppointmentsRepository implements IAppointmentRepository {
   private appointments: Appointment[] = [];
 
   public async findByDate(date: Date): Promise<Appointment | undefined> {
@@ -14,6 +18,29 @@ class AppointmentsRepository implements IAppointmentRepository {
     );
 
     return findAppointment;
+  }
+  public async findAllInMonthFromProvider({ provider_id, month, year }: IFindAllInMonthFromProviderDTO): Promise<Appointment[]> {
+    const appointments = this.appointments.filter(appointment => {
+      return (
+        appointment.provider_id === provider_id &&
+        getMonth(appointment.date) + 1 === month &&
+        getYear(appointment.date) === year
+      );
+    });
+
+    return appointments;
+  }
+  public async findAllInDayFromProvider({ provider_id, day, month, year }: IFindAllInDayFromProviderDTO): Promise<Appointment[]> {
+    const appointments = this.appointments.filter(appointment => {
+      return (
+        appointment.provider_id === provider_id &&
+        getDate(appointment.date) === day &&
+        getMonth(appointment.date) + 1 === month &&
+        getYear(appointment.date) === year
+      );
+    });
+
+    return appointments;
   }
 
   public async create({ provider_id, date }: ICreateAppointmentDTO): Promise<Appointment> {
@@ -27,4 +54,4 @@ class AppointmentsRepository implements IAppointmentRepository {
   }
 }
 
-export default AppointmentsRepository;
+export default FakeAppointmentsRepository;
