@@ -1,15 +1,16 @@
-import Appointment from "../infra/typeorm/entities/Appointment";
-import ICreateAppointmentDTO from "../dtos/ICreateAppointmentDTO";
-import IFindAllInMonthFromProviderDTO from '../dtos/IFindAllInMonthFromProviderDTO';
-import IFindaAllInDayFromProviderDTO from '../dtos/IFindAllInDayFromProviderDTO';
-import IFindAllInDayFromProviderDTO from "../dtos/IFindAllInDayFromProviderDTO";
+import Appointment from '../infra/typeorm/entities/Appointment';
+import ICreateAppointmentDTO from '../dtos/ICreateAppointmentDTO';
+import IFindAllInMonthProviderDTO from '../dtos/IFindAllInMonthFromProviderDTO';
+import IFindAllInDayProviderDTO from '../dtos/IFindAllInDayFromProviderDTO';
 
 export default interface IAppointmentsRepository {
   create(data: ICreateAppointmentDTO): Promise<Appointment>;
-  findByDate(date: Date): Promise<Appointment | undefined>;
-  findAllInMonthFromProvider(data: IFindAllInMonthFromProviderDTO): Promise<Appointment[]>;
-  findAllInDayFromProvider(data: IFindAllInDayFromProviderDTO): Promise<Appointment[]>;
+  findByDate(date: Date, provider_id: string): Promise<Appointment | undefined>;
+  findAllInMonthFromProvider(
+    data: IFindAllInMonthProviderDTO,
+  ): Promise<Appointment[]>;
+  findAllInDayFromProvider(
+    data: IFindAllInDayProviderDTO,
+  ): Promise<Appointment[]>;
 }
-
-
 //dtos - data transfer objects
