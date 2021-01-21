@@ -3,6 +3,7 @@ import { parseISO } from 'date-fns';
 import { container } from 'tsyringe';
 
 import ListProviderAppointmentsSevice from '@modules/appointments/services/ListProviderAppointmentsService';
+import { classToClass } from 'class-transformer';
 
 export default class ProviderAppointmentsController {
   //todo metodo assincrono ira retorar uma promise<response>
@@ -19,6 +20,6 @@ export default class ProviderAppointmentsController {
       year: Number(year)
     });
 
-    return response.json(appointments);
+    return response.json(classToClass(appointments));
   }
 }
